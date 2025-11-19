@@ -48,7 +48,7 @@ export const useThreeBodySimulation = () => {
                     x: -100,
                     y: -70,
                     vx: 0,
-                    vy: -0.66,
+                    vy: -0.65 + Math.random() * 0.01,
                     mass: 80,
                     color: '#3366FF'
                 }
