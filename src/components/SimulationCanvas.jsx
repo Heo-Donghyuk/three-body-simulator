@@ -10,16 +10,24 @@ const SimulationCanvas = ({ bodies, trails, zoom, isAutoCamera }) => {
         const container = containerRef.current;
         if (!canvas || !container) return;
 
-        // Resize canvas to match container
-        if (canvas.width !== container.clientWidth || canvas.height !== container.clientHeight) {
-            canvas.width = container.clientWidth;
-            canvas.height = container.clientHeight;
+        // Resize canvas to match container with DPR
+        const dpr = window.devicePixelRatio || 1;
+        const rect = container.getBoundingClientRect();
+
+        // Set actual size in memory (scaled to account for extra pixel density)
+        if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            // Normalize coordinate system to use css pixels
+            // We will scale the context instead of setting style width/height which is handled by CSS
         }
 
-        const width = canvas.width;
-        const height = canvas.height;
+        const width = rect.width;
+        const height = rect.height;
 
         const ctx = canvas.getContext('2d');
+        ctx.resetTransform(); // Reset transform to clear previous frame's scaling
+        ctx.scale(dpr, dpr); // Scale all drawing operations by dpr
 
         // Dark background
         ctx.fillStyle = '#050b14';
