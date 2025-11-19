@@ -23,12 +23,12 @@ const ThreeBodySimulation = () => {
     } = useThreeBodySimulation();
 
     return (
-        <div className="flex flex-col h-[100dvh] bg-black text-slate-100 font-sans overflow-hidden">
+        <div className="fixed inset-0 bg-black overflow-hidden touch-none flex flex-col">
             <header className="absolute top-0 left-0 right-0 p-4 flex items-center justify-between z-20 bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
                 <div className="flex items-center space-x-2 pointer-events-auto">
                     <h1 className="text-xl font-bold text-transparent bg-clip-text text-white">
                         Three-Body Simulator
-                        <span className='text-xs text-white ml-2'>v0.1.1</span>
+                        <span className='text-xs text-white ml-2'>v0.1.2</span>
                     </h1>
                 </div>
             </header>
