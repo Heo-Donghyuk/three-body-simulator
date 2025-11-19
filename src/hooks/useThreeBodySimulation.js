@@ -25,7 +25,57 @@ export const useThreeBodySimulation = () => {
                 { x: -97.000436, y: 24.308753, vx: 0.4662036850, vy: 0.4323657300, mass: 100, color: '#33FF66' },
                 { x: 0, y: 0, vx: -2 * 0.4662036850, vy: -2 * 0.4323657300, mass: 100, color: '#3366FF' }
             ];
+        } else if (type === 'dynamic') {
+            // Dynamic & Long-lasting preset (Fixed values for tuning)
+            const newBodies = [
+                {
+                    x: 0,
+                    y: 100,
+                    vx: 0.4,
+                    vy: 0,
+                    mass: 120,
+                    color: '#FF3366'
+                },
+                {
+                    x: 100,
+                    y: -70,
+                    vx: -0.8,
+                    vy: 0.4,
+                    mass: 100,
+                    color: '#33FF66'
+                },
+                {
+                    x: -100,
+                    y: -70,
+                    vx: 0,
+                    vy: -0.66,
+                    mass: 80,
+                    color: '#3366FF'
+                }
+            ];
+
+            // Enforce Zero Net Momentum to keep system centered
+            let totalMass = 0;
+            let totalMomentumX = 0;
+            let totalMomentumY = 0;
+
+            newBodies.forEach(b => {
+                totalMass += b.mass;
+                totalMomentumX += b.mass * b.vx;
+                totalMomentumY += b.mass * b.vy;
+            });
+
+            const vComX = totalMomentumX / totalMass;
+            const vComY = totalMomentumY / totalMass;
+
+            newBodies.forEach(b => {
+                b.vx -= vComX;
+                b.vy -= vComY;
+            });
+
+            return newBodies;
         } else {
+            // Random (Standard)
             const newBodies = [];
             for (let i = 0; i < 3; i++) {
                 newBodies.push({
@@ -67,7 +117,7 @@ export const useThreeBodySimulation = () => {
     }, []);
 
     useEffect(() => {
-        initializeBodies('random');
+        initializeBodies('dynamic');
     }, [initializeBodies]);
 
     const handleSpeedChange = (e) => {
