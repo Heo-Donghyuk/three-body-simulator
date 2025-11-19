@@ -28,30 +28,9 @@ export const useThreeBodySimulation = () => {
         } else if (type === 'dynamic') {
             // Dynamic & Long-lasting preset (Fixed values for tuning)
             const newBodies = [
-                {
-                    x: 0,
-                    y: 100,
-                    vx: 0.4,
-                    vy: 0,
-                    mass: 120,
-                    color: '#FF3366'
-                },
-                {
-                    x: 100,
-                    y: -70,
-                    vx: -0.8,
-                    vy: 0.4,
-                    mass: 100,
-                    color: '#33FF66'
-                },
-                {
-                    x: -100,
-                    y: -70,
-                    vx: 0,
-                    vy: -0.65 + Math.random() * 0.01,
-                    mass: 80,
-                    color: '#3366FF'
-                }
+                { x: 0, y: 190, vx: -0.31, vy: 0, mass: 130, color: '#EF4444' },
+                { x: 591.9059, y: 0, vx: 0, vy: 0.26, mass: 130, color: '#3B82F6' },
+                { x: -135, y: -135, vx: 0.23, vy: -0.23, mass: 130, color: '#22C55E' }
             ];
 
             // Enforce Zero Net Momentum to keep system centered
@@ -118,6 +97,8 @@ export const useThreeBodySimulation = () => {
 
     useEffect(() => {
         initializeBodies('dynamic');
+        // Immediately switch to 'random' so that the next reset (auto or manual) uses random values
+        setSimulationType('random');
     }, [initializeBodies]);
 
     const handleSpeedChange = (e) => {
