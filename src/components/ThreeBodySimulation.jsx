@@ -28,6 +28,7 @@ const ThreeBodySimulation = () => {
                 <div className="flex items-center space-x-2 pointer-events-auto">
                     <h1 className="text-xl font-bold text-transparent bg-clip-text text-white">
                         Three-Body Simulator
+                        <span className='text-xs text-white ml-2'>v0.1.1</span>
                     </h1>
                 </div>
             </header>
