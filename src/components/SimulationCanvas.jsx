@@ -10,10 +10,14 @@ const SimulationCanvas = ({ bodies, trails, zoom, isAutoCamera }) => {
         const container = containerRef.current;
         if (!canvas || !container) return;
 
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-        canvas.width = width;
-        canvas.height = height;
+        // Resize canvas to match container
+        if (canvas.width !== container.clientWidth || canvas.height !== container.clientHeight) {
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+
+        const width = canvas.width;
+        const height = canvas.height;
 
         const ctx = canvas.getContext('2d');
 
